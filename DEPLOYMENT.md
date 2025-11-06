@@ -24,13 +24,13 @@ NEXT_PUBLIC_CONTRACT_ADDRESS=DEPLOYED_CONTRACT_ADDRESS
 NEXT_PUBLIC_SEPOLIA_RPC_URL=https://sepolia.infura.io/v3/YOUR_INFURA_PROJECT_ID
 ```
 
-### 3. 스마트 컨트랙트 정보 수정
-`ignition/modules/StudentInfo.ts` 파일에서 학번과 이름을 수정하세요:
+### 3. 스마트 컨트랙트 정보 확인
+`ignition/modules/StudentInfo.ts` 파일에 이미 학번과 이름이 설정되어 있습니다:
 
 ```typescript
-// 실제 정보로 변경하세요
-const studentId = "실제학번"; 
-const studentName = "실제이름";
+// 백 학생의 정보가 설정됨
+const studentId = "92113633"; 
+const studentName = "백";
 ```
 
 ### 4. 스마트 컨트랙트 배포 (수동)
