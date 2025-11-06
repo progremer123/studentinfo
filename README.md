@@ -1,36 +1,126 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Web3.0 Student Information DApp
 
-## Getting Started
+학생 정보를 Ethereum Sepolia 테스트넷에 저장하고 조회할 수 있는 Web3.0 분산 애플리케이션입니다.
 
-First, run the development server:
+## 🚀 주요 기능
 
+- 스마트 컨트랙트에 학번과 이름 저장
+- MetaMask 지갑 연동
+- Ethereum Sepolia 테스트넷 연결
+- React/Next.js 기반 모던 UI
+
+## 🛠 기술 스택
+
+- **프론트엔드**: Next.js 16, React 19, TypeScript, Tailwind CSS
+- **블록체인**: Ethereum, Solidity ^0.8.28
+- **개발도구**: Hardhat, Ethers.js
+- **배포**: Vercel (프론트엔드), Sepolia 테스트넷 (스마트 컨트랙트)
+
+## 📋 사전 요구사항
+
+- Node.js 18+ 
+- MetaMask 브라우저 확장 프로그램
+- Sepolia 테스트넷 ETH (faucet에서 받기)
+
+## ⚙️ 설치 및 설정
+
+1. **프로젝트 클론 및 의존성 설치**
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <repository-url>
+cd web3-dapp-project
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **환경 변수 설정**
+```bash
+# .env.local 파일 생성
+cp .env.example .env.local
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. **환경 변수 입력**
+```env
+SEPOLIA_RPC_URL=https://sepolia.infura.io/v3/YOUR_INFURA_PROJECT_ID
+SEPOLIA_PRIVATE_KEY=YOUR_PRIVATE_KEY_HERE
+ETHERSCAN_API_KEY=YOUR_ETHERSCAN_API_KEY
+NEXT_PUBLIC_CONTRACT_ADDRESS=DEPLOYED_CONTRACT_ADDRESS
+NEXT_PUBLIC_SEPOLIA_RPC_URL=https://sepolia.infura.io/v3/YOUR_INFURA_PROJECT_ID
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🔧 개발 및 배포
 
-## Learn More
+### 1. 스마트 컨트랙트 컴파일
+```bash
+npm run compile
+```
 
-To learn more about Next.js, take a look at the following resources:
+### 2. 로컬 테스트 (선택사항)
+```bash
+# 로컬 하드햇 네트워크에서 테스트
+npx hardhat node
+npm run deploy:local
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 3. Sepolia 테스트넷에 배포
+```bash
+npm run deploy:sepolia
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 4. 프론트엔드 개발 서버 실행
+```bash
+npm run dev
+```
 
-## Deploy on Vercel
+### 5. 프로덕션 빌드
+```bash
+npm run build
+npm start
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📱 사용 방법
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. MetaMask를 Sepolia 테스트넷으로 연결
+2. 웹사이트에서 "MetaMask 연결하기" 클릭
+3. 지갑 연결 승인
+4. 스마트 컨트랙트에서 학생 정보 자동 로드
+
+## 📁 프로젝트 구조
+
+```
+web3-dapp-project/
+├── contracts/              # 솔리디티 스마트 컨트랙트
+│   └── StudentInfo.sol     # 학생 정보 저장 컨트랙트
+├── ignition/modules/       # 배포 스크립트
+│   └── StudentInfo.ts      # 컨트랙트 배포 모듈
+├── src/
+│   ├── app/
+│   │   └── page.tsx       # 메인 페이지 컴포넌트
+│   └── types/
+│       └── global.d.ts    # TypeScript 타입 정의
+├── hardhat.config.ts      # Hardhat 설정
+└── package.json           # 프로젝트 의존성
+```
+
+## 🌐 배포 정보
+
+- **컨트랙트 주소**: [Sepolia 배포 후 업데이트]
+- **네트워크**: Ethereum Sepolia Testnet
+- **웹사이트**: [Vercel 배포 후 업데이트]
+- **GitHub**: [Repository URL]
+
+## 🤝 기여
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📄 라이선스
+
+이 프로젝트는 MIT 라이선스 하에 있습니다.
+
+## 📞 연락처
+
+- **학번**: [실제 학번 입력]
+- **이름**: [실제 이름 입력]
+- **이메일**: [이메일 주소]
