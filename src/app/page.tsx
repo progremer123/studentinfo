@@ -125,6 +125,11 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    // 컨트랙트가 배포되지 않았을 때 임시 정보 표시
+    if (!CONTRACT_ADDRESS) {
+      setStudentId("92113633");
+      setStudentName("백이랑");
+    }
     connectWallet();
   }, []);
 
