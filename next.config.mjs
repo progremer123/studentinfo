@@ -1,15 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  webpack: (config) => {
-    config.externals.push({
-      'hardhat/config': 'hardhat/config',
-      '@nomiclabs/hardhat-ethers': '@nomiclabs/hardhat-ethers'
-    });
-    return config;
-  },
-  experimental: {
-    // Next.js 앱 라우터 최적화
-    appDir: true,
+  // Turbopack을 위한 빈 설정으로 webpack 오류 해결
+  turbopack: {},
+  // 실험적 기능 제거 (Next.js 16에서 더이상 필요없음)
+  experimental: {},
+  // 환경 변수 허용
+  env: {
+    CONTRACT_ADDRESS: process.env.CONTRACT_ADDRESS,
+    SEPOLIA_RPC_URL: process.env.SEPOLIA_RPC_URL,
   }
 };
 
