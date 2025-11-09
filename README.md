@@ -102,11 +102,11 @@ web3-dapp-project/
 
 ## 🌐 배포 정보
 
-- **컨트랙트 주소**: `0xDad755952F8572285505e7fAaA16EF4C71427Bd2`
+- **컨트랙트 주소**: `0x6B3b8DDad4c5999330DAAF8C3D8a637cB88bfA26`
 - **네트워크**: Ethereum Sepolia Testnet
-- **웹사이트**: [Vercel 배포 후 업데이트]
-- **GitHub**: [Repository URL]
-- **Etherscan**: https://sepolia.etherscan.io/address/0xDad755952F8572285505e7fAaA16EF4C71427Bd2
+- **웹사이트**: [Vercel 배포 완료 후 URL 업데이트 예정]
+- **GitHub**: https://github.com/progremer123/studentinfo
+- **Etherscan**: https://sepolia.etherscan.io/address/0x6B3b8DDad4c5999330DAAF8C3D8a637cB88bfA26
 
 ## 🤝 기여
 

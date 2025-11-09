@@ -1,6 +1,5 @@
-import { HardhatUserConfig } from "hardhat/config";
-
-const config: HardhatUserConfig = {
+// Hardhat configuration - not used in Next.js build
+const config = {
   solidity: "0.8.28",
   networks: {
     sepolia: {
@@ -10,4 +9,4 @@ const config: HardhatUserConfig = {
   },
 };
 
-export default config;
+module.exports = config;
