@@ -140,6 +140,15 @@ export default function Home() {
         const accounts = await provider.send("eth_requestAccounts", []);
         setAccount(accounts[0]);
 
+        // 네트워크 확인
+        const network = await provider.getNetwork();
+        console.log("Connected network:", network.name, network.chainId);
+        
+        if (Number(network.chainId) !== 11155111) { // Sepolia chainId
+          alert("Sepolia 테스트넷으로 변경해주세요!");
+          return;
+        }
+
         const signer = await provider.getSigner();
         if (CONTRACT_ADDRESS) {
           const contractInstance = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
@@ -148,20 +157,72 @@ export default function Home() {
         }
       } catch (error) {
         console.error("Error connecting wallet:", error);
+        alert("지갑 연결 중 오류가 발생했습니다. Sepolia 네트워크를 확인해주세요.");
       }
     } else {
       alert("MetaMask를 설치해주세요!");
     }
   };
 
+  const addSepoliaNetwork = async () => {
+    if (typeof window.ethereum !== "undefined") {
+      try {
+        await window.ethereum.request({
+          method: 'wallet_addEthereumChain',
+          params: [{
+            chainId: '0xaa36a7', // 11155111 in hex
+            chainName: 'Sepolia',
+            nativeCurrency: {
+              name: 'SepoliaETH',
+              symbol: 'SepoliaETH',
+              decimals: 18
+            },
+            rpcUrls: ['https://sepolia.drpc.org'],
+            blockExplorerUrls: ['https://sepolia.etherscan.io/']
+          }]
+        });
+        alert("Sepolia 네트워크가 추가되었습니다!");
+      } catch (error) {
+        console.error("네트워크 추가 실패:", error);
+        alert("네트워크 추가에 실패했습니다.");
+      }
+    }
+  };
+
   const loadStudentInfo = async (contractInstance: ethers.Contract) => {
     try {
       setLoading(true);
+      console.log("📋 컨트랙트 정보 로드 시작...");
+      console.log("📍 컨트랙트 주소:", CONTRACT_ADDRESS);
+      
+      // 개별 함수 호출로 테스트
+      console.log("🔍 studentId 함수 호출...");
+      const studentIdResult = await contractInstance.studentId();
+      console.log("✅ studentId 결과:", studentIdResult);
+      
+      console.log("🔍 studentName 함수 호출...");
+      const studentNameResult = await contractInstance.studentName();
+      console.log("✅ studentName 결과:", studentNameResult);
+      
+      console.log("🔍 getInfo 함수 호출...");
       const [id, name] = await contractInstance.getInfo();
+      console.log("✅ getInfo 결과:", id, name);
+      
       setStudentId(id);
       setStudentName(name);
-    } catch (error) {
-      console.error("Error loading student info:", error);
+      console.log("🎉 학생 정보 로드 완료!");
+    } catch (error: any) {
+      console.error("❌ 학생 정보 로드 실패:", error);
+      // 더 자세한 오류 정보
+      if (error?.code) {
+        console.error("오류 코드:", error.code);
+      }
+      if (error?.reason) {
+        console.error("오류 이유:", error.reason);
+      }
+      if (error?.message) {
+        console.error("오류 메시지:", error.message);
+      }
     } finally {
       setLoading(false);
     }
@@ -183,13 +244,22 @@ export default function Home() {
           <h2 className="text-2xl font-semibold mb-6 text-gray-800">학생 정보</h2>
           
           {!account ? (
-            <div className="text-center">
+            <div className="text-center space-y-4">
               <button
                 onClick={connectWallet}
-                className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg"
+                className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg mr-4"
               >
                 MetaMask 연결하기
               </button>
+              <button
+                onClick={addSepoliaNetwork}
+                className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg"
+              >
+                Sepolia 네트워크 추가
+              </button>
+              <p className="text-sm text-gray-600 mt-4">
+                ⚠️ Sepolia 테스트넷에 연결되어야 합니다
+              </p>
             </div>
           ) : (
             <div>
@@ -239,9 +309,19 @@ export default function Home() {
           <div className="space-y-4">
             <div>
               <h3 className="font-semibold text-gray-700">컨트랙트 주소:</h3>
-              <p className="font-mono text-sm bg-gray-100 p-2 rounded">
+              <p className="font-mono text-sm bg-gray-100 p-2 rounded break-all">
                 {CONTRACT_ADDRESS || "배포 후 업데이트 예정"}
               </p>
+              {CONTRACT_ADDRESS && (
+                <a 
+                  href={`https://sepolia.etherscan.io/address/${CONTRACT_ADDRESS}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:text-blue-800 text-sm underline"
+                >
+                  Etherscan에서 확인하기 ↗
+                </a>
+              )}
             </div>
             <div>
               <h3 className="font-semibold text-gray-700">네트워크:</h3>
